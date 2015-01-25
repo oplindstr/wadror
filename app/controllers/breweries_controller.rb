@@ -1,5 +1,6 @@
 class BreweriesController < ApplicationController
   before_action :set_brewery, only: [:show, :edit, :update, :destroy]
+  before_action :authenticate, only: [:destroy]
 
   # GET /breweries
   # GET /breweries.json
@@ -10,6 +11,10 @@ class BreweriesController < ApplicationController
   # GET /breweries/1
   # GET /breweries/1.json
   def show
+    @ratings = @brewery.ratings
+    if !@ratings.empty?
+      @average = @brewery.average_rating
+    end
   end
 
   # GET /breweries/new
@@ -19,6 +24,14 @@ class BreweriesController < ApplicationController
 
   # GET /breweries/1/edit
   def edit
+  end
+
+  def authenticate
+    admin_accounts = { "admin" => "secret", "pekka" => "beer", "arto" => "foobar", "matti" => "ittam"}
+
+    authenticate_or_request_with_http_basic do |username, password|
+      admin_accounts[username] == password
+    end
   end
 
   # POST /breweries

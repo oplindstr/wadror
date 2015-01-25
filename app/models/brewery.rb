@@ -1,4 +1,5 @@
 class Brewery < ActiveRecord::Base
+  include Enumerable, RatingAverage
   has_many :beers, dependent: :destroy
   has_many :ratings, through: :beers
 
