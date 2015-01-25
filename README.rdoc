@@ -1,3 +1,3 @@
-Heroku-linkki:
-http://blooming-eyrie-9779.herokuapp.com/beers
+﻿Heroku-linkki:
+https://quiet-oasis-6141.herokuapp.com
   
