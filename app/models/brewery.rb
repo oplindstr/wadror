@@ -3,8 +3,8 @@ class Brewery < ActiveRecord::Base
   has_many :beers, dependent: :destroy
   has_many :ratings, through: :beers
   validates :name, presence: true
-  validates :year, numericality: {greater_than_or_equal_to: 1042,
-                                  less_than_or_equal_to: 2015}
+  validates :year, numericality: {greater_than_or_equal_to: 1042}
+  validate :year_cannot_be_in_the_future
 
   def print_report
     puts name
@@ -19,5 +19,11 @@ class Brewery < ActiveRecord::Base
 
   def to_s
     self.name
+  end
+
+  def year_cannot_be_in_the_future
+    if self.year > Time.now.year
+      errors.add(:year, " cannot be in the future")
+    end
   end
 end
