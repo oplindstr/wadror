@@ -1,9 +1,18 @@
 Ratebeer::Application.routes.draw do
+  resources :users
+
   resources :beers
 
   resources :breweries
 
   root 'breweries#index'
+
+  get 'signup', to: 'users#new'
+
+  resource :session, only: [:new, :create, :delete]
+
+  get 'signin', to: 'sessions#new'
+  delete 'signout', to: 'sessions#destroy'
 
   resources :ratings, only: [:index, :new, :create, :destroy]
 
