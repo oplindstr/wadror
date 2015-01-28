@@ -1,5 +1,6 @@
 class BeerClub < ActiveRecord::Base
-  has_many :users, through: :membership
+  has_many :memberships
+  has_many :users, -> { uniq }, through: :memberships
 
   def to_s
     "#{self.name} #{self.city}"

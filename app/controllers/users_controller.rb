@@ -14,6 +14,7 @@ class UsersController < ApplicationController
     if !@ratings.empty?
       @average = @user.average_rating
     end
+    @beer_clubs = @user.beer_clubs
   end
 
   # GET /users/new
@@ -73,6 +74,6 @@ class UsersController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def user_params
-      params.require(:user).permit(:username)
+      params.require(:user).permit(:username, :password, :password_confirmation)
     end
 end

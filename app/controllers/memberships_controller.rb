@@ -15,7 +15,9 @@ class MembershipsController < ApplicationController
   # GET /memberships/new
   def new
     @membership = Membership.new
-    @beer_clubs = BeerClub.all
+    @beer_clubs = BeerClub.find_by_sql("Select * from beer_clubs where id
+   not in (Select beer_club_id from memberships where user_id=#{current_user.id})")
+
   end
 
   # GET /memberships/1/edit
@@ -26,10 +28,11 @@ class MembershipsController < ApplicationController
   # POST /memberships.json
   def create
     @membership = Membership.new(membership_params)
+    @beer_club = BeerClub.find(@membership.beer_club_id)
 
     respond_to do |format|
       if @membership.save
-        format.html { redirect_to @membership, notice: 'Membership was successfully created.' }
+        format.html { redirect_to @beer_club, notice: 'Joined club successfully!.' }
         format.json { render action: 'show', status: :created, location: @membership }
       else
         format.html { render action: 'new' }

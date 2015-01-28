@@ -8,6 +8,12 @@
 
 <p>has made <%= @ratings.count %> ratings, average: <%= @average %></p>
 
+<p>member of
+  <% @beer_clubs.each do |club| %>
+  <%= link_to club , club %>
+  <% end %>
+</p>
+
 <p><strong>ratings</strong></p>
 
 <% @ratings.each do |rating| %>
