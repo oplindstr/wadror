@@ -17,10 +17,17 @@
 <p><strong>ratings</strong></p>
 
 <% @ratings.each do |rating| %>
-  <li> <%= rating %> <%= link_to 'delete', rating, method: :delete, data: { confirm: 'Are you sure?' } %> </li>
+  <li> 
+  	<%= rating %> 
+  	<% if @user == current_user %>
+  	<%= link_to 'delete', rating, method: :delete, data: { confirm: 'Are you sure?' } %>
+     <% end %>
+  	 </li>
 <% end %>
 <p></p>
 
-
+<% if @user == current_user %>
 <%= link_to 'Edit', edit_user_path(@user) %> |
+<%= link_to 'Delete account', @user, method: :delete, data: { confirm: 'Are you sure?' } %> |
+<% end %>
 <%= link_to 'Back', users_path %>
