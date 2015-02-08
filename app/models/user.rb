@@ -1,5 +1,5 @@
 class User < ActiveRecord::Base
-  include RatingAverage
+  include RatingAverage, Enumerable
 
   has_secure_password
 
@@ -16,5 +16,26 @@ class User < ActiveRecord::Base
 
   def to_s
     self.username
+  end
+
+  def favorite_beer
+    return nil if ratings.empty?
+    ratings.sort_by{ |r| r.score }.last.beer
+  end
+
+  def favorite_style
+    return nil if ratings.empty?
+    averages = ratings.joins(:beer).group(:style).average("score")
+    max = averages.max_by { |x, y| y}
+    max.first
+  end
+
+  def favorite_brewery
+    return nil if ratings.empty?
+    averages = ratings.joins(:beer).group(:brewery_id).average("score")
+    max = averages.max_by { |x, y| y}
+    best_brewery_id = max.first
+    brewery = Brewery.find(best_brewery_id)
+    brewery.name
   end
 end

@@ -8,6 +8,14 @@
 
 <p>has made <%= @ratings.count %> ratings, average: <%= @average %></p>
 
+<% if !@ratings.empty? %>
+
+<p>Favorite style: <%= @favorite_style %>
+
+<p>Favorite brewery: <%= @favorite_brewery %>
+
+<%end %>
+
 <p>member of
   <% @beer_clubs.each do |club| %>
   <%= link_to club , club %>

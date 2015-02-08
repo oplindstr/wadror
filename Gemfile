@@ -53,6 +53,10 @@ end
 # Use ActiveModel has_secure_password
 gem 'bcrypt-ruby', '~> 3.1.2'
 
+group :development,:test do
+  gem 'rspec-rails', '~> 3.0'
+end
+
 # Use unicorn as the app server
 # gem 'unicorn'
 
@@ -64,3 +68,10 @@ gem 'bcrypt-ruby', '~> 3.1.2'
 
 # Readline
 gem 'rb-readline'
+
+group :test do
+  gem 'factory_girl_rails'
+  gem 'capybara'
+  gem 'launchy'
+end
+

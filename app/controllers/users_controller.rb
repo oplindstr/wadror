@@ -15,6 +15,8 @@ class UsersController < ApplicationController
       @average = @user.average_rating
     end
     @beer_clubs = @user.beer_clubs
+    @favorite_style = @user.favorite_style
+    @favorite_brewery = @user.favorite_brewery
   end
 
   # GET /users/new
