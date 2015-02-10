@@ -53,6 +53,8 @@ end
 # Use ActiveModel has_secure_password
 gem 'bcrypt-ruby', '~> 3.1.2'
 
+gem 'travis', '~> 1.7.5'
+
 group :development,:test do
   gem 'rspec-rails', '~> 3.0'
   gem 'rspec-its'

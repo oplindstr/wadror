@@ -8,3 +8,10 @@ script:
  - RAILS_ENV=test bundle exec rake db:migrate --trace
  - bundle exec rake db:test:prepare
  - bundle exec rspec -fd spec/
+
+secure: "ZJaQ1khtil2lHd8oEsOSk/IoZtCUdadCBZxkkkL0hV/VlCe6zV/M9GMT1P6CxbHrKuknsj57unRq6YoloXCT1rUlz2Mu+QF7cAnD7qTXeFT3/by+1OZx+ycuGXGNs4Zz9/PQcHj9Go+uBFKuSKNyZ0+XqQ4tDdtA398aBAN5SSs="
+
+ deploy:
+   provider: heroku
+   api_key: secure
+   run: "rake db:migrate"
