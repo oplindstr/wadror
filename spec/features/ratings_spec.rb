@@ -32,4 +32,15 @@ describe "Rating" do
     expect(page).to have_content 'iso 3 10 Pekka'
   end
 
+  it "is deleted when user deletes it from user page" do
+    visit user_path(user)
+    expect(page).to have_content("iso 3 10")
+
+    expect{
+      page.find("li", :text => "iso 3 10").click_link("delete")
+    }.to change{Rating.count}.from(2).to(1)
+
+    expect(page).not_to have_content("iso 3 10")
+  end
+
 end
