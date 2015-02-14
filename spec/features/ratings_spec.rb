@@ -2,8 +2,9 @@ require 'rails_helper'
 
 describe "Rating" do
   let!(:brewery) { FactoryGirl.create :brewery, name:"Koff" }
-  let!(:beer1) { FactoryGirl.create :beer, name:"iso 3", brewery:brewery }
-  let!(:beer2) { FactoryGirl.create :beer, name:"Karhu", brewery:brewery }
+  let!(:style) { FactoryGirl.create :style }
+  let!(:beer1) { FactoryGirl.create :beer, name:"iso 3", brewery:brewery, style:style }
+  let!(:beer2) { FactoryGirl.create :beer, name:"Karhu", brewery:brewery, style:style }
   let!(:user) { FactoryGirl.create :user }
     let!(:rating) { FactoryGirl.create :rating, score:10, beer:beer1, user:user }
   let!(:rating2) { FactoryGirl.create :rating, score:20, beer:beer2, user:user }

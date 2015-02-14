@@ -12,6 +12,9 @@ class BeerClubsController < ApplicationController
   # GET /beer_clubs/1.json
   def show
     @users = @beer_club.users
+    @membership = Membership.new
+    @existing_memberships = Membership.find_by_sql("Select * from Memberships where beer_club_id = #{@beer_club.id} and user_id = #{current_user.id}")
+    @membership = @existing_memberships.first if !@existing_memberships.empty?
   end
 
   # GET /beer_clubs/new

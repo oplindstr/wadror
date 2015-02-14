@@ -72,23 +72,25 @@ describe User do
 
     describe "favorite style" do
     	let(:user){ FactoryGirl.create(:user) }
+        let!(:style2) {FactoryGirl.create(:style2) }
+        let!(:brewery) { FactoryGirl.create(:brewery)}
 
     	it "has favorite style if ratings exist" do
     		beer = create_beer_with_rating(10, user)
 
-    		expect(user.favorite_style).to eq(beer.style)
+    		expect(user.favorite_style).to eq(beer.style.name)
     	end
 
     	it "and gives correct favorite style with multiple ratings" do
     		beer = FactoryGirl.create(:beer)
     		beer2 = FactoryGirl.create(:beer2)
-    		beer3 = FactoryGirl.create(:beer3)
+    		beer3 = FactoryGirl.create(:beer3, name:"lol", brewery:brewery, style:style2)
 
-    		rating = FactoryGirl.create(:rating, score:20, beer:beer, user:user)
-    		rating2 = FactoryGirl.create(:rating, score:31, beer:beer2, user:user)
-    		rating3 = FactoryGirl.create(:rating, score:10, beer:beer3, user:user)
+    		rating = FactoryGirl.create(:rating, score:20, beer:beer3, user:user)
+    		rating2 = FactoryGirl.create(:rating, score:31, beer:beer, user:user)
+    		rating3 = FactoryGirl.create(:rating, score:10, beer:beer2, user:user)
 
-    		expect(user.favorite_style).to eq(beer3.style)
+    		expect(user.favorite_style).to eq(beer.style.name)
     	end
 
 
@@ -105,11 +107,12 @@ describe User do
 
     	it "and gives correct favorite brewery with multiple ratings" do
     		brewery = FactoryGirl.create(:brewery)
-    		beer = FactoryGirl.create(:beer, name:"lol2", brewery:brewery, style:"Lager")
-    		beer2 = FactoryGirl.create(:beer, name:"lol3", brewery:brewery, style:"Lager")
-    		beer3 = FactoryGirl.create(:beer, name:"lol4", brewery:brewery, style:"Lager")
+            style = FactoryGirl.create(:style)
+    		beer = FactoryGirl.create(:beer, name:"lol2", brewery:brewery, style:style)
+    		beer2 = FactoryGirl.create(:beer, name:"lol3", brewery:brewery, style:style)
+    		beer3 = FactoryGirl.create(:beer, name:"lol4", brewery:brewery, style:style)
     		brewery2 = FactoryGirl.create(:brewery2)
-    		beer4 = FactoryGirl.create(:beer, name:"lol", brewery:brewery2, style:"Lager")
+    		beer4 = FactoryGirl.create(:beer, name:"lol", brewery:brewery2, style:style)
 
     		rating = FactoryGirl.create(:rating, score:20, beer:beer, user:user)
     		rating2 = FactoryGirl.create(:rating, score:31, beer:beer2, user:user)

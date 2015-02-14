@@ -36,7 +36,8 @@ end
 
 describe "User's page" do
     let!(:brewery) { FactoryGirl.create :brewery, name:"Koff" }
-    let!(:beer1) { FactoryGirl.create :beer, name:"iso 3", brewery:brewery }
+    let!(:style) { FactoryGirl.create :style}
+    let!(:beer1) { FactoryGirl.create :beer, name:"iso 3", brewery:brewery, style:style }
     let!(:user2) { FactoryGirl.create :user2 }
     let!(:user) { FactoryGirl.create :user}
     let!(:rating) { FactoryGirl.create :rating, score:10, beer:beer1, user:user }

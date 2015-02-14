@@ -11,7 +11,7 @@ class User < ActiveRecord::Base
   validates :password, :format => {:with => /^.{4,}$/, message: "must be at least 4 characters long", multiline: true}
   has_many :ratings
   has_many :beers, through: :ratings
-  has_many :memberships
+  has_many :memberships, dependent: :destroy
   has_many :beer_clubs, -> { uniq }, through: :memberships
 
   def to_s
@@ -25,9 +25,11 @@ class User < ActiveRecord::Base
 
   def favorite_style
     return nil if ratings.empty?
-    averages = ratings.joins(:beer).group(:style).average("score")
+    averages = ratings.joins(:beer).group(:style_id).average("score")
     max = averages.max_by { |x, y| y}
-    max.first
+    style_id = max.first
+    style = Style.find(style_id)
+    style.name
   end
 
   def favorite_brewery

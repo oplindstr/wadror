@@ -33,21 +33,31 @@ FactoryGirl.define do
     year 2000
   end
 
+  factory :style do
+    name "Weizen"
+    descr "lol"
+  end
+
+  factory :style2, class: Style do
+    name "Lager"
+    descr "best"
+  end
+
   factory :beer do
     name "lol"
     brewery
-    style "Weizen"
+    style
   end
 
   factory :beer2, class: Beer do
     name "anonymous"
     brewery
-    style "Lager"
+    style
   end
 
   factory :beer3, class: Beer do
     name "anon"
     brewery
-    style "Lager"
+    style
   end
 end
