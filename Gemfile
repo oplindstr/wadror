@@ -82,4 +82,10 @@ end
 
 gem 'httparty'
 
+gem 'bootstrap-sass'
+
+group :development do
+  gem 'rails_layout'
+end
+
 
